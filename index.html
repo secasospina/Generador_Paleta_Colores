@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Generador de paletas interactivo</title>
+  </head>
+  <body>
+    <header>
+      <h1>Generador de paletas interactivo</h1>
+      <label for="colorCount">Seleccione la cantidad de colores:</label>
+      <select id="colorCount">
+        <option>Seleccione...</option>
+        <option>6 colores</option>
+        <option>8 colores</option>
+        <option>9 colores</option>
+      </select>
+      <label for="colorFormat">Elija el formato de color:</label>
+      <select id="colorFormat">
+        <option>Seleccione...</option>
+        <option>HSL</option>
+        <option>HEXA</option>
+      </select>
+      <button id="generateButton">Generar paleta</button>
+    </header>
+    <main>
+      <div id="paletteContainer"></div>
+    </main>
+    <footer>
+      <p>
+        Desarrollado por
+        <a href="https://github.com/secasospina">Sebastián Castaño Ospina</a>
+      </p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
