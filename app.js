@@ -1,9 +1,57 @@
+const colorCountSelect = document.getElementById('colorCount');
+
+const colorFormatSelect = document.getElementById('colorFormat');
+colorFormatSelect.addEventListener('change', renderPalette);
+
+const paletteContainer = document.getElementById('paletteContainer');
+
+const generateButton = document.getElementById('generateButton');
+generateButton.addEventListener('click', generatePalette);
+
+let paletaActual = [];
+
+// Funcion generadora de paletas de colores
+function generatePalette() {
+  const cantidad = Number(colorCountSelect.value);
+  paletaActual = [];
+
+  for (let i = 0; i < cantidad; i++) {
+    const color = rgbGenerator();
+    paletaActual.push(color);
+  }
+  renderPalette();
+}
+
 function max(r, g, b) {
   return Math.max(r, g, b);
 }
 
 function min(r, g, b) {
   return Math.min(r, g, b);
+}
+
+// Funcion para renderizar el contenedor
+function renderPalette() {
+  paletteContainer.innerHTML = '';
+
+  for (let i = 0; i < paletaActual.length; i++) {
+    const color = paletaActual[i];
+    const colorDiv = document.createElement('div');
+
+    const formato = colorFormatSelect.value;
+    let colorTexto;
+
+    if (formato === 'hex') {
+      colorTexto = rgbToHex(color.r, color.g, color.b);
+    } else {
+      colorTexto = rgbToHsl(color.r, color.g, color.b);
+    }
+
+    colorDiv.style.backgroundColor = colorTexto;
+    colorDiv.textContent = colorTexto;
+
+    paletteContainer.appendChild(colorDiv);
+  }
 }
 
 // Función generadora del RGB
