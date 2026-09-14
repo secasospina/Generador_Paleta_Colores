@@ -37,6 +37,7 @@ function renderPalette() {
   for (let i = 0; i < paletaActual.length; i++) {
     const color = paletaActual[i];
     const colorDiv = document.createElement('div');
+    colorDiv.className = 'contenedor';
 
     const formato = colorFormatSelect.value;
     let colorTexto;
