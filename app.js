@@ -17,11 +17,11 @@ function generatePalette() {
   if (paletaActual.length !== cantidad) {
     paletaActual = Array.from({ length: cantidad }, () => ({
       rgb: rgbGenerator(),
-      locked: false
+      locked: false,
     }));
   } else {
     // Si mantenemos la cantidad, solo generamos nuevos colores para los NO bloqueados
-    paletaActual = paletaActual.map(item => {
+    paletaActual = paletaActual.map((item) => {
       if (item.locked) return item;
       return { rgb: rgbGenerator(), locked: false };
     });
@@ -62,7 +62,7 @@ function renderPalette() {
   });
 
   // Delegación de eventos para el botón de candado
-  document.querySelectorAll('.lock-btn').forEach(btn => {
+  document.querySelectorAll('.lock-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation(); // Evita conflictos con otros clics
       const index = e.target.dataset.index;
@@ -72,14 +72,18 @@ function renderPalette() {
   });
 }
 
-function max(r, g, b) { return Math.max(r, g, b); }
-function min(r, g, b) { return Math.min(r, g, b); }
+function max(r, g, b) {
+  return Math.max(r, g, b);
+}
+function min(r, g, b) {
+  return Math.min(r, g, b);
+}
 
 function rgbGenerator() {
   return {
     r: Math.floor(Math.random() * 256),
     g: Math.floor(Math.random() * 256),
-    b: Math.floor(Math.random() * 256)
+    b: Math.floor(Math.random() * 256),
   };
 }
 
@@ -91,11 +95,15 @@ function rgbToHex(r, g, b) {
 }
 
 function rgbToHsl(r, g, b) {
-  r /= 255; g /= 255; b /= 255;
+  r /= 255;
+  g /= 255;
+  b /= 255;
   const cmax = max(r, g, b);
   const cmin = min(r, g, b);
   const delta = cmax - cmin;
-  let h = 0, s = 0, l = (cmax + cmin) / 2;
+  let h = 0,
+    s = 0,
+    l = (cmax + cmin) / 2;
 
   if (delta !== 0) {
     s = l <= 0.5 ? delta / (cmax + cmin) : delta / (2 - cmax - cmin);
