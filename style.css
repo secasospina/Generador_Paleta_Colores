@@ -1,3 +1,36 @@
+/* Botón del candado dentro de las tarjetas */
+.lock-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+  margin: 0; /* Anula el margin general de los botones */
+}
+
+.lock-btn:hover {
+  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Estado cuando el candado está bloqueado */
+.lock-btn.locked {
+  background: var(--primary-color);
+  border-color: rgba(255, 255, 255, 0.4);
+}
 * {
   margin: 0;
   padding: 0;
@@ -115,27 +148,48 @@ select:focus {
   padding: 20px;
 }
 
-/* Tarjetas individuales de color */
+/* Tarjeta individual de color */
 .contenedor {
-  width: 160px;
+  width: 180px;
   height: 200px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
-  padding: 12px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-end; /* Coloca la información en la parte inferior */
+  justify-content: center;
+  padding: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    background-color 0.4s ease-in-out,
+    transform 0.2s ease;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .contenedor:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+}
+
+/* Cuadro oscuro con sombra para la información del color */
+.color-text {
+  background-color: rgba(0, 0, 0, 0.65); /* Fondo oscuro semitransparente */
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace; /* Fuente estilo código */
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+
+  /* Efecto de desenfoque de cristal (Glassmorphism) */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  /* Borde fino sutil y sombra oscura profunda */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  /* Evita desbordamiento de texto */
+  word-break: break-all;
 }
