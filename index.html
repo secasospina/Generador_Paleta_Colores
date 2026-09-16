@@ -22,12 +22,22 @@
         <option value="hsl">HSL</option>
         <option value="hex">HEXA</option>
       </select>
-      <button id="generateButton">Generar paleta</button>
-      <button id="clearButton">Limpiar paleta</button>
+      <div class="action-buttons">
+        <button id="generateButton">Generar paleta</button>
+        <button id="clearButton">Limpiar paleta</button>
+        <button id="savePaletteButton">Guardar paleta</button>
+      </div>
     </header>
+
     <main>
       <div id="paletteContainer"></div>
     </main>
+
+    <aside class="saved-palettes" aria-labelledby="savedPalettesTitle">
+      <h2 id="savedPalettesTitle">Paletas guardadas</h2>
+      <div id="savedPalettesContainer" class="saved-palettes-list"></div>
+    </aside>
+
     <footer>
       <div class="footer-content">
         <p>Desarrollado por <span>Sebastián Castaño Ospina</span></p>

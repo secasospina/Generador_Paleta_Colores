@@ -279,3 +279,145 @@ footer {
     padding: 15px;
   }
 }
+
+/* Paletas guardadas: panel compacto lateral */
+.saved-palettes {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+  width: 270px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 16px;
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.75);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.saved-palettes h2 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.saved-palettes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty-saved-palettes {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.saved-palette-card {
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.saved-palette-preview {
+  display: flex;
+  height: 38px;
+}
+
+.mini-color {
+  flex: 1;
+}
+
+.saved-palette-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.saved-palette-info span {
+  margin-right: auto;
+}
+
+.saved-palette-action,
+.saved-palette-delete {
+  margin: 0;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  box-shadow: none;
+}
+
+.saved-palette-delete {
+  min-width: 28px;
+  padding: 3px 8px;
+  background: rgba(239, 68, 68, 0.75);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.saved-palette-delete:hover {
+  background: #dc2626;
+  box-shadow: none;
+}
+
+/* En pantallas pequeñas, el panel deja de flotar y aparece debajo de la app */
+@media (max-width: 800px) {
+  .saved-palettes {
+    position: static;
+    width: min(100%, 500px);
+    max-height: none;
+    margin: 24px auto 0;
+  }
+}
+
+/* Agrupa las acciones principales en una sola fila */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.action-buttons button {
+  margin: 0;
+  min-width: 155px;
+}
+
+/* En pantallas pequeñas, los botones vuelven a organizarse en columna */
+@media (max-width: 560px) {
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-buttons button {
+    width: min(100%, 280px);
+  }
+}
+
+/* Mantiene el footer al final de la página */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+}
+
+footer {
+  position: static;
+  flex-shrink: 0;
+  margin: 50px auto 20px;
+}
