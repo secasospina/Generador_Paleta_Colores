@@ -7,8 +7,7 @@ Este proyecto fue desarrollado como Proyecto Integrador del Módulo 1 del bootca
 ## Enlaces
 
 - **Demo en GitHub Pages:** [Paleta de colores interactiva](https://secasospina.github.io/Generador_Paleta_Colores/)
-- **Repositorio:** [Repositorio](URL_DEL_REPOSITOhttps://github.com/secasospina/Generador_Paleta_ColoresRIO)
-- **Documentación del uso de IA:** [Documentación uso de la IA](./Documentación/AI_Promting.MD)
+- **Documentación del uso de IA:** [Documentación del uso de IA](./Documentacion/AI_Promting.MD)
 
 ## Vista previa
 
@@ -126,7 +125,7 @@ La información se guarda únicamente en el navegador de la persona usuaria medi
 
 La inteligencia artificial se utilizó como apoyo para comprender conceptos, evaluar alternativas y revisar soluciones puntuales. La implementación fue adaptada e integrada dentro del proyecto.
 
-Consulta el detalle de los temas abordados, los resultados aplicados y las evidencias en [Documentación de IA](./Documentación/uso-de-ia.md).
+Consulta el detalle de los temas abordados, los resultados aplicados y las evidencias en [Documentación del uso de IA](./Documentacion/AI_Promting.MD)
 
 ## Próximas mejoras
 

@@ -59,4 +59,73 @@ Durante el desarrollo del proyecto se utilizó inteligencia artificial como herr
 
 ## Evidencias
 
-Se adjuntan capturas de las consultas realizadas y de las funcionalidades implementadas en la carpeta de documentación del proyecto.
+Se adjuntan capturas de las consultas realizadas y de las funcionalidades implementadas en la carpeta de documentación del proyecto.s
+
+# Documentación del uso de IA
+
+Este documento reúne consultas realizadas con inteligencia artificial como apoyo durante el desarrollo del proyecto.
+
+## Apoyo visual para CSS
+
+![Apoyo visual CSS](<./capturasYflujo/IA-Apoyo visual CSS.png>)
+
+## Consulta sobre Array
+
+![Consulta Array](<./capturasYflujo/IA-Consulta Array.png>)
+
+## Consulta sobre definición visual
+
+![Consulta definición visual](<./capturasYflujo/IA-Consulta definicion visual.png>)
+
+## Consulta sobre formato de colores
+
+![Consulta formato de colores](<./capturasYflujo/IA-Consulta formato de colores.png>)
+
+## Corrección de botones
+
+![Corrección botones](<./capturasYflujo/IA-Correccion botones.png>)
+
+## Corrección del formato de color
+
+![Corrección formato color](<./capturasYflujo/IA-Corrección formato color.png>)
+
+## Corrección de bloqueo — Parte 1
+
+![Corrección bloqueo 1](./capturasYflujo/IA-Correccion-bloqueo-1.png)
+
+## Corrección de bloqueo — Parte 2
+
+![Corrección bloqueo 2](./capturasYflujo/IA-Correccion-bloqueo-2.png)
+
+## Corrección de bloqueo — Parte 3
+
+![Corrección bloqueo 3](./capturasYflujo/IA-Correccion-bloqueo-3.png)
+
+## Duda sobre funcionalidad
+
+![Duda funcionalidad](<./capturasYflujo/IA-Duda funcionalidad.png>)
+
+## Guardar paleta de colores
+
+![Guardar paleta de colores](<./capturasYflujo/IA-Guardar paleta de colores.png>)
+s
+
+## Revisión de las funciones max y min
+
+![Revisión max y min](<./capturasYflujo/IA-Revisión max y min.png>)
+
+## Validación de cálculo aleatorio
+
+![Validación random](<./capturasYflujo/IA-Validacion que calcula el random.png>)
+
+## Validación y bloqueo
+
+![Validación y bloqueo](./capturasYflujo/IA-Validación-y-bloqueo.png)
+
+## Validación de campos
+
+![Validación](./capturasYflujo/IA-Validación.png)
+
+---
+
+[← Volver al README principal](../README.MD)

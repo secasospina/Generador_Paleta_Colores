@@ -16,6 +16,25 @@ generateButton.addEventListener('click', generatePalette);
 clearButton.addEventListener('click', clearPalette);
 savePaletteButton.addEventListener('click', saveFavoritePalette);
 
+colorCountSelect.addEventListener('change', () => {
+  const cantidadSeleccionada = Number(colorCountSelect.value);
+  const coloresBloqueados = getLockedColorsCount();
+
+  // No valida si todavía no existe una paleta o no se eligió cantidad.
+  if (!cantidadSeleccionada || paletaActual.length === 0) {
+    return;
+  }
+
+  // No permite reducir la paleta si hay más colores bloqueados
+  // que la cantidad seleccionada.
+  if (cantidadSeleccionada < coloresBloqueados) {
+    showPaletteSizeError(coloresBloqueados, cantidadSeleccionada);
+
+    // Regresa el selector a la cantidad actual de la paleta.
+    colorCountSelect.value = paletaActual.length;
+  }
+});
+
 colorFormatSelect.addEventListener('change', () => {
   const cantidad = colorCountSelect.value;
   const formato = colorFormatSelect.value;
@@ -28,9 +47,8 @@ colorFormatSelect.addEventListener('change', () => {
 
 savedPalettesContainer.addEventListener('click', handleSavedPalette);
 
-// Copia el código del color al hacer clic sobre una tarjeta.
 paletteContainer.addEventListener('click', (event) => {
-  // Evita copiar si se hizo clic sobre el candado.
+  // Evita copiar el código si el usuario presionó el candado.
   if (event.target.closest('.lock-btn')) return;
 
   const colorCard = event.target.closest('.contenedor');
@@ -49,10 +67,27 @@ paletteContainer.addEventListener('click', (event) => {
     });
 });
 
+function getLockedColorsCount() {
+  return paletaActual.filter((color) => color.locked).length;
+}
+
+function showPaletteSizeError(coloresBloqueados, cantidadSeleccionada) {
+  const cantidadPorDesbloquear = coloresBloqueados - cantidadSeleccionada;
+
+  alert(
+    `⚠️ ACCIÓN NO PERMITIDA
+
+Actualmente tienes ${coloresBloqueados} colores bloqueados y seleccionaste una paleta de ${cantidadSeleccionada} colores.
+
+Debes desbloquear al menos ${cantidadPorDesbloquear} color(es) antes de reducir el tamaño de la paleta.`
+  );
+}
+
 // Genera una paleta y conserva los colores bloqueados.
 function generatePalette() {
   const cantidad = Number(colorCountSelect.value);
   const formato = colorFormatSelect.value;
+  const coloresBloqueados = getLockedColorsCount();
 
   if (!cantidad || !formato) {
     alert(
@@ -61,13 +96,23 @@ function generatePalette() {
     return;
   }
 
+  // Validación adicional para impedir eliminar colores bloqueados.
+  if (cantidad < coloresBloqueados) {
+    showPaletteSizeError(coloresBloqueados, cantidad);
+
+    colorCountSelect.value = paletaActual.length;
+    return;
+  }
+
   paletaActual = Array.from({ length: cantidad }, (_, index) => {
     const colorAnterior = paletaActual[index];
 
+    // Conserva el color anterior si está bloqueado.
     if (colorAnterior && colorAnterior.locked) {
       return colorAnterior;
     }
 
+    // Crea un color nuevo si no existía o no está bloqueado.
     return {
       rgb: rgbGenerator(),
       locked: false,
@@ -130,7 +175,7 @@ function renderPalette() {
   });
 }
 
-// Limpia la paleta actual y la información guardada de ella.
+// Limpia la paleta actual.
 function clearPalette() {
   paletaActual = [];
   paletteContainer.innerHTML = '';
@@ -138,7 +183,7 @@ function clearPalette() {
   localStorage.removeItem('paletaGuardada');
 }
 
-// Guarda la paleta actual para recuperarla al recargar la página.
+// Guarda la paleta actual para recuperarla al recargar.
 function savePalette() {
   const paletteData = {
     cantidad: colorCountSelect.value,
@@ -164,7 +209,7 @@ function loadPalette() {
   renderPalette();
 }
 
-// Obtiene las paletas favoritas.
+// Obtiene las paletas favoritas guardadas.
 function getSavedPalettes() {
   const savedPalettes = localStorage.getItem('paletasFavoritas');
 
@@ -257,7 +302,6 @@ function renderSavedPalettes() {
     deleteButton.textContent = '×';
 
     paletteInfo.append(paletteText, loadButton, deleteButton);
-
     paletteCard.append(palettePreview, paletteInfo);
 
     savedPalettesContainer.appendChild(paletteCard);
