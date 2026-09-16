@@ -4,9 +4,25 @@ Aplicación web estática e interactiva para crear, personalizar y conservar pal
 
 Este proyecto fue desarrollado como Proyecto Integrador del Módulo 1 del bootcamp Full Stack.
 
+## Índice
+
+- [Enlaces](#enlaces)
+- [Vista previa](#vista-previa)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
+- [Estructura sugerida](#estructura-sugerida)
+- [Cómo usar la aplicación](#cómo-usar-la-aplicación)
+- [Ejecución local](#ejecución-local)
+- [Decisiones técnicas](#decisiones-técnicas)
+- [Persistencia de datos](#persistencia-de-datos)
+- [Despliegue en GitHub Pages](#despliegue-en-github-pages)
+- [Documentación del uso de IA](#documentación-del-uso-de-ia)
+- [Próximas mejoras](#próximas-mejoras)
+- [Autor](#autor)
+
 ## Enlaces
 
-- **Demo en GitHub Pages:** [Paleta de colores interactiva](https://secasospina.github.io/Generador_Paleta_Colores/)
+- **Despliegue en GitHub Pages:** [Paleta de colores interactiva](https://secasospina.github.io/Generador_Paleta_Colores/)
 - **Documentación del uso de IA:** [Documentación del uso de IA](./Documentacion/AI_Promting.MD)
 
 ## Vista previa
@@ -109,6 +125,8 @@ Este proyecto no requiere instalaciones ni dependencias externas.
 También puedes abrirlo con la extensión **Live Server** de Visual Studio Code. Para probar la copia al portapapeles se recomienda usar Live Server o la demo desplegada, ya que la API `navigator.clipboard` funciona en contextos seguros como `localhost` y GitHub Pages.
 
 ## Decisiones técnicas
+
+- La aplicación inicia sin una paleta visible. La variable `paletaActual` comienza vacía y el renderizado solo ocurre después de que la persona usuaria seleccione la cantidad de colores, el formato de visualización y presione el botón **Generar paleta**. Esto evita mostrar información predeterminada o incompleta.
 
 - Cada color se guarda internamente como un objeto RGB. De este modo, un mismo color puede convertirse a HEX o HSL sin modificar su valor original.
 - La variable `paletaActual` centraliza el estado de la paleta, incluido el valor RGB y la propiedad `locked` de cada color.
