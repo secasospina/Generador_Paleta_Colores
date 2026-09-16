@@ -20,17 +20,13 @@ colorCountSelect.addEventListener('change', () => {
   const cantidadSeleccionada = Number(colorCountSelect.value);
   const coloresBloqueados = getLockedColorsCount();
 
-  // No valida si todavía no existe una paleta o no se eligió cantidad.
   if (!cantidadSeleccionada || paletaActual.length === 0) {
     return;
   }
 
-  // No permite reducir la paleta si hay más colores bloqueados
-  // que la cantidad seleccionada.
   if (cantidadSeleccionada < coloresBloqueados) {
     showPaletteSizeError(coloresBloqueados, cantidadSeleccionada);
 
-    // Regresa el selector a la cantidad actual de la paleta.
     colorCountSelect.value = paletaActual.length;
   }
 });
@@ -48,7 +44,6 @@ colorFormatSelect.addEventListener('change', () => {
 savedPalettesContainer.addEventListener('click', handleSavedPalette);
 
 paletteContainer.addEventListener('click', (event) => {
-  // Evita copiar el código si el usuario presionó el candado.
   if (event.target.closest('.lock-btn')) return;
 
   const colorCard = event.target.closest('.contenedor');
@@ -83,7 +78,6 @@ Debes desbloquear al menos ${cantidadPorDesbloquear} color(es) antes de reducir 
   );
 }
 
-// Genera una paleta y conserva los colores bloqueados.
 function generatePalette() {
   const cantidad = Number(colorCountSelect.value);
   const formato = colorFormatSelect.value;
@@ -96,7 +90,6 @@ function generatePalette() {
     return;
   }
 
-  // Validación adicional para impedir eliminar colores bloqueados.
   if (cantidad < coloresBloqueados) {
     showPaletteSizeError(coloresBloqueados, cantidad);
 
@@ -107,12 +100,10 @@ function generatePalette() {
   paletaActual = Array.from({ length: cantidad }, (_, index) => {
     const colorAnterior = paletaActual[index];
 
-    // Conserva el color anterior si está bloqueado.
     if (colorAnterior && colorAnterior.locked) {
       return colorAnterior;
     }
 
-    // Crea un color nuevo si no existía o no está bloqueado.
     return {
       rgb: rgbGenerator(),
       locked: false,
@@ -123,7 +114,6 @@ function generatePalette() {
   savePalette();
 }
 
-// Muestra la paleta en pantalla.
 function renderPalette() {
   const cantidad = colorCountSelect.value;
   const formato = colorFormatSelect.value;
@@ -175,15 +165,31 @@ function renderPalette() {
   });
 }
 
-// Limpia la paleta actual.
 function clearPalette() {
+  if (paletaActual.length === 0) {
+    alert('No hay una paleta generada para limpiar.');
+    return;
+  }
+
+  const confirmation = confirm(
+    `⚠️ ¿Estás seguro de que deseas limpiar la paleta?
+
+Se eliminarán los ${paletaActual.length} colores actuales, incluidos los colores bloqueados.
+
+Esta acción no se puede deshacer.`
+  );
+
+  // Si presiona “Cancelar”, no se modifica nada.
+  if (!confirmation) {
+    return;
+  }
+
   paletaActual = [];
   paletteContainer.innerHTML = '';
 
   localStorage.removeItem('paletaGuardada');
 }
 
-// Guarda la paleta actual para recuperarla al recargar.
 function savePalette() {
   const paletteData = {
     cantidad: colorCountSelect.value,
@@ -194,7 +200,6 @@ function savePalette() {
   localStorage.setItem('paletaGuardada', JSON.stringify(paletteData));
 }
 
-// Recupera la última paleta generada.
 function loadPalette() {
   const paletteSaved = localStorage.getItem('paletaGuardada');
 
@@ -209,7 +214,6 @@ function loadPalette() {
   renderPalette();
 }
 
-// Obtiene las paletas favoritas guardadas.
 function getSavedPalettes() {
   const savedPalettes = localStorage.getItem('paletasFavoritas');
 
@@ -220,7 +224,31 @@ function getSavedPalettes() {
   return JSON.parse(savedPalettes);
 }
 
-// Guarda una copia de la paleta actual como favorita.
+function showSavedPaletteFeedback() {
+  const preference = localStorage.getItem('mostrarAlertaGuardado');
+
+  // Primera vez que guarda una paleta favorita.
+  if (preference === null) {
+    const wantsToSeeAlert = confirm(
+      `✅ Paleta guardada correctamente.
+
+¿Deseas seguir viendo este mensaje cada vez que guardes una paleta?`
+    );
+
+    localStorage.setItem(
+      'mostrarAlertaGuardado',
+      wantsToSeeAlert ? 'true' : 'false'
+    );
+
+    return;
+  }
+
+  // Muestra la alerta únicamente si eligió continuar viéndola.
+  if (preference === 'true') {
+    alert('✅ Paleta guardada correctamente.');
+  }
+}
+
 function saveFavoritePalette() {
   if (paletaActual.length === 0) {
     alert('Primero debes generar una paleta para poder guardarla.');
@@ -243,11 +271,9 @@ function saveFavoritePalette() {
   localStorage.setItem('paletasFavoritas', JSON.stringify(savedPalettes));
 
   renderSavedPalettes();
-
-  alert('Paleta guardada correctamente.');
+  showSavedPaletteFeedback();
 }
 
-// Muestra las miniaturas de las paletas favoritas.
 function renderSavedPalettes() {
   const savedPalettes = getSavedPalettes();
 
@@ -308,7 +334,6 @@ function renderSavedPalettes() {
   });
 }
 
-// Permite cargar o eliminar una paleta favorita.
 function handleSavedPalette(event) {
   const button = event.target.closest('button[data-action]');
 
