@@ -94,7 +94,7 @@ Este proyecto no requiere instalaciones ni dependencias externas.
 1. Clona el repositorio:
 
    ```bash
-   git clone URL_DEL_REPOSITORIO
+   git clone https://github.com/secasospina/Generador_Paleta_Colores.git
    ```
 
 2. Entra a la carpeta del proyecto:
