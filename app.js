@@ -1,43 +1,72 @@
 const colorCountSelect = document.getElementById('colorCount');
 const colorFormatSelect = document.getElementById('colorFormat');
-colorFormatSelect.addEventListener('change', renderPalette);
+colorFormatSelect.addEventListener('change', () => {
+  const cantidad = colorCountSelect.value;
+  const formato = colorFormatSelect.value;
+
+  if (cantidad && formato && paletaActual.length > 0) {
+    renderPalette();
+    savePalette();
+  }
+});
 
 const paletteContainer = document.getElementById('paletteContainer');
 const generateButton = document.getElementById('generateButton');
 generateButton.addEventListener('click', generatePalette);
+
+const clearButton = document.getElementById('clearButton');
+clearButton.addEventListener('click', clearPalette);
 
 let paletaActual = [];
 
 // Función generadora de paletas respetando el estado de bloqueo
 function generatePalette() {
   const cantidad = Number(colorCountSelect.value);
-  if (!cantidad) return;
+  const formato = colorFormatSelect.value;
 
-  // Si la cantidad seleccionada cambió, reiniciamos la estructura
-  if (paletaActual.length !== cantidad) {
-    paletaActual = Array.from({ length: cantidad }, () => ({
-      rgb: rgbGenerator(),
-      locked: false,
-    }));
-  } else {
-    // Si mantenemos la cantidad, solo generamos nuevos colores para los NO bloqueados
-    paletaActual = paletaActual.map((item) => {
-      if (item.locked) return item;
-      return { rgb: rgbGenerator(), locked: false };
-    });
+  if (!cantidad || !formato) {
+    alert(
+      'Faltan campos obligatorios. Selecciona la cantidad y el formato de color antes de generar la paleta.'
+    );
+    return;
   }
 
+  paletaActual = Array.from({ length: cantidad }, (_, index) => {
+    const colorAnterior = paletaActual[index];
+
+    // Conserva el color si existía y estaba bloqueado.
+    if (colorAnterior && colorAnterior.locked) {
+      return colorAnterior;
+    }
+
+    // Crea un color nuevo si no existía o no está bloqueado.
+    return {
+      rgb: rgbGenerator(),
+      locked: false,
+    };
+  });
+
   renderPalette();
+  savePalette();
 }
 
 function renderPalette() {
+  const cantidad = colorCountSelect.value;
+  const formato = colorFormatSelect.value;
+
+  // Evita mostrar una paleta si faltan selecciones
+  // o si todavía no se han generado colores.
+  if (!cantidad || !formato || paletaActual.length === 0) {
+    paletteContainer.innerHTML = '';
+    return;
+  }
+
   paletteContainer.innerHTML = '';
 
   paletaActual.forEach((item, index) => {
     const colorDiv = document.createElement('div');
     colorDiv.className = 'contenedor';
 
-    const formato = colorFormatSelect.value;
     let colorTexto;
 
     if (formato === 'hex') {
@@ -48,26 +77,28 @@ function renderPalette() {
 
     colorDiv.style.backgroundColor = colorTexto;
 
-    // Determinar el ícono del candado según el estado
     const lockIcon = item.locked ? '🔒' : '🔓';
     const lockClass = item.locked ? 'lock-btn locked' : 'lock-btn';
 
-    // Insertar el botón del candado y la etiqueta de texto
     colorDiv.innerHTML = `
-      <button class="${lockClass}" data-index="${index}">${lockIcon}</button>
+      <button class="${lockClass}" data-index="${index}">
+        ${lockIcon}
+      </button>
       <span class="color-text">${colorTexto}</span>
     `;
 
     paletteContainer.appendChild(colorDiv);
   });
 
-  // Delegación de eventos para el botón de candado
   document.querySelectorAll('.lock-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Evita conflictos con otros clics
+      e.stopPropagation();
+
       const index = e.target.dataset.index;
       paletaActual[index].locked = !paletaActual[index].locked;
+
       renderPalette();
+      savePalette(); // Guarda el nuevo estado del candado en localStorage
     });
   });
 }
@@ -116,4 +147,35 @@ function rgbToHsl(r, g, b) {
   if (h < 0) h += 360;
 
   return `hsl(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+}
+
+function savePalette() {
+  const paletteData = {
+    cantidad: colorCountSelect.value,
+    formato: colorFormatSelect.value,
+    colores: paletaActual,
+  };
+
+  localStorage.setItem('paletaGuardada', JSON.stringify(paletteData));
+}
+
+function loadPalette() {
+  const paletteSaved = localStorage.getItem('paletaGuardada');
+
+  if (!paletteSaved) return;
+
+  const paletteData = JSON.parse(paletteSaved);
+
+  colorCountSelect.value = paletteData.cantidad;
+  colorFormatSelect.value = paletteData.formato;
+  paletaActual = paletteData.colores;
+
+  renderPalette();
+}
+
+function clearPalette() {
+  paletaActual = [];
+  paletteContainer.innerHTML = '';
+
+  localStorage.removeItem('paletaGuardada');
 }
