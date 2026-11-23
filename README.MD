@@ -10,7 +10,7 @@ Este proyecto fue desarrollado como Proyecto Integrador del Módulo 1 del bootca
 - [Vista previa](#vista-previa)
 - [Funcionalidades](#funcionalidades)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
-- [Estructura sugerida](#estructura-sugerida)
+- [Estructura del proyecto](#estructura-del-proyecto)
 - [Cómo usar la aplicación](#cómo-usar-la-aplicación)
 - [Ejecución local](#ejecución-local)
 - [Decisiones técnicas](#decisiones-técnicas)
@@ -77,20 +77,17 @@ Este proyecto fue desarrollado como Proyecto Integrador del Módulo 1 del bootca
 | Git y GitHub | Control de versiones y publicación                    |
 | GitHub Pages | Despliegue de la demo                                 |
 
-## Estructura sugerida
+## Estructura del proyecto
 
 ```text
-ProyectoM1_SebastianCastanoOspina/
-├── index.html
-├── style.css
-├── app.js
+Generador_Paleta_Colores/
+├── index.html                 # Estructura semántica de la aplicación
+├── style.css                  # Estilos, layout responsivo y efectos visuales
+├── app.js                     # Lógica de generación, DOM, eventos y localStorage
 ├── Documentacion/
-│   ├── capturasYflujo/
-│   │   ├── app-paleta-generada.png
-│   │   ├── app-paletas-guardadas.png
-│   │   └─ SoportesIA
-│   └── AI_Promting.md
-└── README.md
+│   ├── capturasYflujo/        # Capturas de la app y evidencias del uso de IA
+│   └── AI_Promting.MD         # Documentación del uso de IA
+└── README.MD
 ```
 
 ## Cómo usar la aplicación
@@ -116,8 +113,7 @@ Este proyecto no requiere instalaciones ni dependencias externas.
 2. Entra a la carpeta del proyecto:
 
    ```bash
-   cd ProyectoM1_SebastianCastanoOspina
-
+   cd Generador_Paleta_Colores
    ```
 
 3. Abre `index.html` en tu navegador.
